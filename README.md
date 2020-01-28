@@ -1,0 +1,16 @@
+# DebuggerInC
+A simple debugger written in C.
+Use the following instruction to play with the C debugger.
+
+quit: this command should close all resources and terminate the debugger.
+exit: an alias for quit.
+step: this command should execute the instruction found at the current program counter, and advance to the next instruction. If the instruction is halt, the program counter remains unmodified. In either case, the instruction at the resulting program counter (either modified by an instruction or unmodified) is then fetched and printed on the screen. If the instruction is invalid, an error message must be printed (see error messages below) and the program counter remains unmodified.
+run: this command should start executing the entire program starting at the current program counter. For each instruction it should fetch the instruction, execute it, and move the program counter to the next instruction. This step should be repeated until the program halts, a breakpoint is reached, or an invalid instruction is found, whatever comes first. After execution, the next instruction or an invalid instruction message should be printed.
+next: if the instruction at the program counter is not a function call (call), this command is equivalent to step. If the next instruction is a function call, then this command starts the execution of the program, only stopping when the function returns, the program halts, a breakpoint is reached, or an invalid instruction is found, whatever comes first. To identify when the function returns, you must evaluate the value of the stack pointer after each instruction, stopping when the value matches the value of the stack pointer before the function call. After execution, the next instruction or an invalid instruction message should be printed.
+jump X: this command will change the program counter to the value X (where X is any integer value passed as argument to the jump command), then fetch and print the instruction found at this program counter (or an error message if no instruction can be found at this address). No instruction should be executed for this command.
+break X: this command adds a new breakpoint at address X (where X is any integer value passed as argument to the break command). This command does not print anything to the screen. When the program is executing a sequence of instructions through commands like next or run, these commands should stop whenever the program counter is exactly equal to any of the existing breakpoints. The program must be able to keep as many different breakpoints the user creates, and there shouldn't be a hard limit on the number of active breakpoints at any point.
+delete X: this command deletes a breakpoint at address X (where X is any integer value passed as argument to the break command), if one exists. If no breakpoints exists at the address, nothing is done. This command does not print anything to the screen.
+registers: this command prints the current values of all registers in the Y86-64 CPU.
+examine X: this command prints the current value of the 64-bit integer found at the memory address X (where X is any integer value passed as argument to the examine command).
+
+Testfiles are also provided. Open then with the linux environment terminal.
